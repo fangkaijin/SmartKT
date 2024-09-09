@@ -62,6 +62,8 @@ class MainActivity : BaseActivity<ActivityHomeBinding>() {
 
                             xBing?.showTips?.setText(Gson().toJson(it))
 
+                            xBing?.operator02?.toast("获取天气成功")
+
 
                         }else{
 
