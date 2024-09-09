@@ -32,8 +32,11 @@ abstract class BaseDialog<T: ViewBinding>: Dialog {
             lp!!.width = LayoutParams.MATCH_PARENT
             lp!!.height = LayoutParams.MATCH_PARENT
 
-            lp!!.alpha = 0.3F
-            lp!!.dimAmount = 0.8F
+            lp!!.alpha = alpha()
+            lp!!.dimAmount = dimAmount()
+
+            lp!!.verticalMargin = 0.0F
+            lp!!.horizontalMargin = 0.0F
 
             this.window!!.attributes = lp
 
@@ -56,5 +59,7 @@ abstract class BaseDialog<T: ViewBinding>: Dialog {
 
     abstract fun getBinding(): T
     abstract fun parseView()
+    open fun alpha(): Float = 1.0F
+    open fun dimAmount(): Float = 1.0F
 
 }

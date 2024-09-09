@@ -9,6 +9,10 @@ class LoadingDialog(context: Context) : BaseDialog<LayoutDialogBinding>(context)
 
     override fun getBinding(): LayoutDialogBinding = LayoutDialogBinding.inflate(LayoutInflater.from(context))
 
+    override fun alpha(): Float = 0.3F
+
+    override fun dimAmount(): Float = 0.8F
+
     override fun parseView() {
         bind?.loadingTips?.setText("数据加载中...")
     }
