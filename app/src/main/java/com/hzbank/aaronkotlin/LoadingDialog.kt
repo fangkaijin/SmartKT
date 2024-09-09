@@ -5,36 +5,12 @@ import android.content.Context
 import android.view.LayoutInflater
 import com.hzbank.aaronkotlin.databinding.LayoutDialogBinding
 
-class LoadingDialog : Dialog {
+class LoadingDialog(context: Context) : BaseDialog<LayoutDialogBinding>(context) {
 
-    private lateinit var bind: LayoutDialogBinding
+    override fun getBinding(): LayoutDialogBinding = LayoutDialogBinding.inflate(LayoutInflater.from(context))
 
-    private constructor(context: Context): super(context){
-        initView(context)
-    }
-
-    private constructor(context: Context, themeStyle: Int): super(context, themeStyle){
-        initView(context)
-    }
-
-    private fun initView(context: Context){
-
-        bind = LayoutDialogBinding.inflate(LayoutInflater.from(context))
-        setContentView(bind.root)
-        setCanceledOnTouchOutside(false)
-
-        bind.loadingTips.setText("数据加载中...")
-    }
-
-    fun showLoding(){
-
-        if(!this.isShowing) show()
-    }
-
-    fun hiddenLoading(){
-
-        if(this.isShowing) this.hide()
-        this.cancel()
+    override fun parseView() {
+        bind?.loadingTips?.setText("数据加载中...")
     }
 
     companion object{
