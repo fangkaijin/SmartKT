@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.gson.JsonObject
 import com.hzbank.aaronkotlin.databinding.ActivityHomeBinding
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
@@ -33,6 +34,44 @@ class MainActivity : BaseActivity<ActivityHomeBinding>() {
             xBing?.operator01?.showLoading(LoadingDialog.getInstance(this), true)
 
             viewModel.doOperator01()
+
+        }
+
+        xBing?.operator02?.setOnClickListener {
+
+            it.toast("接口请求中")
+            xBing?.operator02?.showLoading(LoadingDialog.getInstance(this), true)
+
+            val params = JsonObject();
+            params.addProperty("name", "杭州市")
+
+            viewModel.doOperator02("api/weather", params)
+
+        }
+
+        lifecycleScope.launch(Dispatchers.Main) {
+
+            viewModel.stateApiFlow.collect{
+
+                it?.let {
+
+                    if(!TextUtils.isEmpty(it.code)){
+
+                        if(TextUtils.equals("200", it.code)){
+                            xBing?.operator02?.toast("获取天气成功")
+                        }else{
+
+                            xBing?.operator02?.toast("获取天气失败")
+                        }
+
+                    }
+
+
+                }
+
+                xBing?.operator02?.showLoading(LoadingDialog.getInstance(this@MainActivity), false)
+
+            }
 
         }
 
