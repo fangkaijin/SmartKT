@@ -61,7 +61,7 @@ class MainActivity : BaseActivity<ActivityHomeBinding>() {
                             xBing?.operator02?.toast("获取天气成功")
                         }else{
 
-                            xBing?.operator02?.toast("获取天气失败")
+                            xBing?.operator02?.toast("获取天气失败"+it.msg)
                         }
 
                     }
