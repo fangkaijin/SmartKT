@@ -12,16 +12,16 @@
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lodingAnima"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
             app:lottie_loop="true"
             app:lottie_autoPlay="true"
             app:lottie_imageAssetsFolder="/"
-            app:lottie_fileName="loading_01.json"/>
+            app:lottie_fileName="loading.json"/>
 
         <TextView
             android:id="@+id/loadingTips"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="#fff"
