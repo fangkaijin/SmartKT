@@ -3,27 +3,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#66000000">
+    android:background="#4E000000">
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@android:color/transparent">
 
         <com.airbnb.lottie.LottieAnimationView
             android:id="@+id/lodingAnima"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="300dp"
+            android:layout_height="300dp"
             app:lottie_loop="true"
+            android:background="@android:color/transparent"
             app:lottie_autoPlay="true"
             app:lottie_imageAssetsFolder="/"
             app:lottie_fileName="loading.json"/>
 
         <TextView
             android:id="@+id/loadingTips"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:gravity="center"
             android:textColor="#fff"
             android:textSize="16sp"
             android:textStyle="bold"
