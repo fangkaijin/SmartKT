@@ -11,6 +11,6 @@ class MainActivity : BaseActivity<ActivityHomeBinding>() {
 
     override fun parseView() {
 
-        binding.tag.setText("hello, Aaron-kotlin")
+        xBing?.tag?.setText("hello, Aaron-kotlin")
     }
 }

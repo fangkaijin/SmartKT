@@ -7,7 +7,24 @@ import androidx.viewbinding.ViewBinding
 abstract class BaseActivity<out T: ViewBinding>: AppCompatActivity() {
 
     private lateinit var _binding: T
-    val binding get() = _binding
+
+    val xBing: T?
+        get() {
+            try{
+
+                if(this::_binding.isLateinit){
+
+                    return this::_binding.get()
+                }
+
+                return null
+
+            }catch (e: Exception){
+                e.printStackTrace()
+            }
+
+            return null
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

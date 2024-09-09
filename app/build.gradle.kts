@@ -51,6 +51,11 @@ android {
 dependencies {
 
     implementation("androidx.core:core-ktx:1.10.1")
+    implementation("org.jetbrains.kotlin:kotlin-reflect:2.0.10")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
+    //协程
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.8.1")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+    implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
 }
