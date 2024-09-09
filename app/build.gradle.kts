@@ -62,4 +62,14 @@ dependencies {
 
     //lottie
     implementation("com.airbnb.android:lottie:6.4.1")
+
+    //okhttp
+    implementation ("com.squareup.okhttp3:okhttp:4.10.0")
+    implementation ("com.squareup.okhttp3:logging-interceptor:4.10.0")
+    //Glide
+    implementation ("com.github.bumptech.glide:glide:4.10.0")
+    implementation ("jp.wasabeef:glide-transformations:4.3.0")
+
+    //gson
+    implementation ("com.google.code.gson:gson:2.10")
 }

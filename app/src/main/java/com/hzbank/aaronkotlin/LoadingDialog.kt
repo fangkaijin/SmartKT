@@ -5,7 +5,7 @@ import android.content.Context
 import android.view.LayoutInflater
 import com.hzbank.aaronkotlin.databinding.LayoutDialogBinding
 
-class LoadingDialog(context: Context) : BaseDialog<LayoutDialogBinding>(context) {
+class LoadingDialog private constructor(context: Context) : BaseDialog<LayoutDialogBinding>(context) {
 
     override fun getBinding(): LayoutDialogBinding = LayoutDialogBinding.inflate(LayoutInflater.from(context))
 
