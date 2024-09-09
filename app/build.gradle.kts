@@ -59,4 +59,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     implementation("androidx.lifecycle:lifecycle-viewmodel:2.8.5")
     implementation("androidx.activity:activity-ktx:1.9.2")
+
+    //lottie
+    implementation("com.airbnb.android:lottie:6.4.1")
 }

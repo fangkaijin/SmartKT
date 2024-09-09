@@ -30,6 +30,7 @@ class MainActivity : BaseActivity<ActivityHomeBinding>() {
         xBing?.operator01?.setOnClickListener{
 
             it.toast("执行协程")
+            xBing?.operator01?.showLoading(LoadingDialog.getInstance(this), true)
 
             viewModel.doOperator01()
 
@@ -41,6 +42,8 @@ class MainActivity : BaseActivity<ActivityHomeBinding>() {
 
 
                 if(!TextUtils.isEmpty(it)) xBing?.showTips?.setText(it)
+
+                xBing?.operator01?.showLoading(LoadingDialog.getInstance(this@MainActivity), false)
             }
 
         }

@@ -11,3 +11,17 @@ fun View.toast(msg: String){
 
     }
 }
+
+fun View.showLoading(dialog: LoadingDialog, isShow: Boolean){
+
+    this?.let {
+
+        if(isShow) {
+            dialog.showLoding()
+        } else{
+            dialog.hiddenLoading()
+        }
+
+    }
+
+}
