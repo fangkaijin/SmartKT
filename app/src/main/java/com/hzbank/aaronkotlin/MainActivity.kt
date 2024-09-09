@@ -5,6 +5,7 @@ import android.text.TextUtils
 import android.view.LayoutInflater
 import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.gson.Gson
 import com.google.gson.JsonObject
 import com.hzbank.aaronkotlin.databinding.ActivityHomeBinding
 import kotlinx.coroutines.Dispatchers
@@ -58,7 +59,10 @@ class MainActivity : BaseActivity<ActivityHomeBinding>() {
                     if(!TextUtils.isEmpty(it.code)){
 
                         if(TextUtils.equals("200", it.code)){
-                            xBing?.operator02?.toast("获取天气成功")
+
+                            xBing?.showTips?.setText(Gson().toJson(it))
+
+
                         }else{
 
                             xBing?.operator02?.toast("获取天气失败"+it.msg)

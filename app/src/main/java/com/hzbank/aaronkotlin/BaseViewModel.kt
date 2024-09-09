@@ -1,6 +1,5 @@
 package com.hzbank.aaronkotlin
 
-import android.view.View
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.google.gson.JsonObject
@@ -11,14 +10,13 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import okhttp3.internal.wait
 
 class BaseViewModel: ViewModel() {
 
     private val _stateStringFlow = MutableStateFlow<String>("")
     val stateFlow = _stateStringFlow.asStateFlow()
 
-    private val __stateApiFlow = MutableStateFlow<BaseBean<weather>>(BaseBean());
+    private val __stateApiFlow = MutableStateFlow<WeatherBean>(WeatherBean());
     val stateApiFlow = __stateApiFlow.asStateFlow()
 
     override fun onCleared() {
@@ -47,21 +45,20 @@ class BaseViewModel: ViewModel() {
 
     fun doOperator02(api: String, params: JsonObject){
 
-        __stateApiFlow.value = BaseBean()
+        __stateApiFlow.value = WeatherBean()
 
         viewModelScope.async(Dispatchers.IO) {
 
-            val result: BaseBean<weather>? = OkHttpUtils.getInstance().requestPost<BaseBean<weather>>(api, params)
+            val result: WeatherBean? = OkHttpUtils.getInstance().requestGet<WeatherBean>(api, params)
 
             withContext(Dispatchers.Main){
 
                 //处理结果
                 if(null == result){
 
-                    val errorBean = BaseBean<weather>()
+                    val errorBean = WeatherBean()
                     errorBean.code = "-9999"
                     errorBean.msg = "接口请求失败"
-                    errorBean.data = null
                     __stateApiFlow.value = errorBean
                 } else {
 

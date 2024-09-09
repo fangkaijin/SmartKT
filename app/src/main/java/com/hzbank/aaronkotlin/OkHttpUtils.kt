@@ -7,6 +7,8 @@ import com.google.gson.JsonParser
 import com.google.gson.reflect.TypeToken
 import okhttp3.Cache
 import okhttp3.ConnectionPool
+import okhttp3.HttpUrl
+import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
@@ -28,6 +30,73 @@ class OkHttpUtils private constructor(){
                 .url(rootUrl + apiName)
                 .post(params.toString().toRequestBody("application/json".toMediaType()))
                 .build()
+
+            val response = getOkClient().newCall(request)!!.execute();
+
+            response?.let {
+                it.body?.let {
+
+                    it.string()?.let {
+
+
+                        //解析
+                        val isJsonObject = JsonParser().parse(it).isJsonObject();
+                        val isJsonArray = JsonParser().parse(it).isJsonArray();
+
+                        val gson = Gson()
+
+
+                        if(isJsonObject){
+
+                            return gson.fromJson(it, T::class.java)
+
+                        } else if(isJsonArray){
+
+                            return gson.fromJson<T>(it, object :TypeToken<T>(){}.type)
+
+                        }
+
+                        return null
+
+
+                    }
+
+                }
+
+
+            }
+
+        }catch (e: Exception){
+            (e?.message?:"请求异常").showLog()
+            e.printStackTrace()
+        }
+
+        return null
+    }
+
+    suspend inline fun <reified T> requestGet(apiName: String,
+                                               params: JsonObject): T?{
+
+        try {
+
+            val urlRequest: HttpUrl.Builder  = (rootUrl+apiName).toHttpUrl()
+                .newBuilder()
+
+            if(null!=params && params.size() > 0){
+
+                val map = params.asMap()
+
+                map.forEach{
+
+                    urlRequest.addQueryParameter(it.key, it.value.asString);
+
+                }
+
+            }
+
+            val request: Request  = Request.Builder()
+                .url(urlRequest.build())
+                .build();
 
             val response = getOkClient().newCall(request)!!.execute();
 
