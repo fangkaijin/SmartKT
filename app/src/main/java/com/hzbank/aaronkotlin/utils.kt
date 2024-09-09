@@ -1,5 +1,6 @@
 package com.hzbank.aaronkotlin
 
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 
@@ -23,5 +24,10 @@ fun View.showLoading(dialog: LoadingDialog, isShow: Boolean){
         }
 
     }
+}
 
+fun String.showLog(){
+    this?.let {
+        Log.d("fangkaijin", it?:"无log")
+    }
 }

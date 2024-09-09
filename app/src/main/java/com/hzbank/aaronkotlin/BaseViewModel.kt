@@ -21,13 +21,15 @@ class BaseViewModel: ViewModel() {
     }
 
     fun doOperator01(){
+        "doOperator01开始执行".showLog()
+        _stateStringFlow.value = ""
 
         viewModelScope.launch(Dispatchers.IO){
 
             delay(10000)
 
             withContext(Dispatchers.Main){
-
+                "doOperator01回调执行".showLog()
                 //回调数据
                 _stateStringFlow.value = "Hello, 执行协程第一个方法";
 

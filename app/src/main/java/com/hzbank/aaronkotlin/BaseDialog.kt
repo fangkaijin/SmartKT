@@ -47,14 +47,24 @@ abstract class BaseDialog<T: ViewBinding>: Dialog {
 
     fun showLoding(){
 
-        if(!this.isShowing) show()
+        if(this.isShowing){
+            hiddenLoading()
+        }
+        show()
     }
 
     fun hiddenLoading(){
 
-        if(this.isShowing) this.hide()
-        bind = null;
-        this.cancel()
+        try{
+
+            this.dismiss()
+            this.cancel()
+            bind = null;
+
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
+
     }
 
     abstract fun getBinding(): T

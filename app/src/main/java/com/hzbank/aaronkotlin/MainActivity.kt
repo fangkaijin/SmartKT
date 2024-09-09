@@ -40,10 +40,14 @@ class MainActivity : BaseActivity<ActivityHomeBinding>() {
 
             viewModel.stateFlow.collect{
 
+                ("viewModel数据收集="+it).showLog()
+                if(!TextUtils.isEmpty(it)){
 
-                if(!TextUtils.isEmpty(it)) xBing?.showTips?.setText(it)
 
-                xBing?.operator01?.showLoading(LoadingDialog.getInstance(this@MainActivity), false)
+                    xBing?.showTips?.setText(it)
+
+                    xBing?.operator01?.showLoading(LoadingDialog.getInstance(this@MainActivity), false)
+                }
             }
 
         }
