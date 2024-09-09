@@ -11,9 +11,11 @@ import okhttp3.HttpUrl
 import okhttp3.HttpUrl.Companion.toHttpUrl
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaType
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.Request
 import okhttp3.RequestBody
+import okhttp3.RequestBody.Companion.asRequestBody
 import okhttp3.RequestBody.Companion.toRequestBody
 import okhttp3.logging.HttpLoggingInterceptor
 import java.io.File
@@ -140,6 +142,123 @@ class OkHttpUtils private constructor(){
 
         return null
     }
+
+    suspend inline fun <reified T> uploadFile(apiName: String,
+                                              fileMap: Map<File, MediaType>): T?{
+
+        try {
+
+            val builder: MultipartBody.Builder = MultipartBody.Builder();
+
+            fileMap.forEach{
+
+                builder.addFormDataPart("reqFiles", it.key.getName(),
+                    it.key.asRequestBody(it.value));
+            }
+
+            val requestBody: RequestBody  = builder
+                    .setType(MultipartBody.FORM)
+                .build();
+
+            val request: Request  = Request.Builder()
+                .url(rootUrl + apiName)
+                .post(requestBody)
+                .build();
+
+            val response = getOkClient().newCall(request)!!.execute();
+
+            response?.let {
+                it.body?.let {
+
+                    it.string()?.let {
+
+
+                        //解析
+                        val isJsonObject = JsonParser().parse(it).isJsonObject();
+                        val isJsonArray = JsonParser().parse(it).isJsonArray();
+
+                        val gson = Gson()
+
+
+                        if(isJsonObject){
+
+                            return gson.fromJson(it, T::class.java)
+
+                        } else if(isJsonArray){
+
+                            return gson.fromJson<T>(it, object :TypeToken<T>(){}.type)
+
+                        }
+
+                        return null
+
+
+                    }
+
+                }
+
+
+            }
+
+        }catch (e: Exception){
+            (e?.message?:"请求异常").showLog()
+            e.printStackTrace()
+        }
+
+        return null
+    }
+
+    suspend inline fun <reified T> downloadFile(fileUrl: String,
+                                                file: File): T?{
+
+        try {
+
+            val request: Request  = Request.Builder().get().url(fileUrl).build();
+
+            val response = getOkClient().newCall(request)!!.execute();
+
+            response?.let {
+                it.body?.let {
+
+                    it.string()?.let {
+
+
+                        //解析
+                        val isJsonObject = JsonParser().parse(it).isJsonObject();
+                        val isJsonArray = JsonParser().parse(it).isJsonArray();
+
+                        val gson = Gson()
+
+
+                        if(isJsonObject){
+
+                            return gson.fromJson(it, T::class.java)
+
+                        } else if(isJsonArray){
+
+                            return gson.fromJson<T>(it, object :TypeToken<T>(){}.type)
+
+                        }
+
+                        return null
+
+
+                    }
+
+                }
+
+
+            }
+
+        }catch (e: Exception){
+            (e?.message?:"请求异常").showLog()
+            e.printStackTrace()
+        }
+
+        return null
+    }
+
+
 
 
     companion object{
