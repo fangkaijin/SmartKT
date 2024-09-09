@@ -1,10 +1,13 @@
 package com.hzbank.aaronkotlin
 
 import android.os.Build
+import android.text.TextUtils
 import android.view.LayoutInflater
+import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.hzbank.aaronkotlin.databinding.ActivityHomeBinding
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.time.delay
 import kotlinx.coroutines.withContext
@@ -13,6 +16,9 @@ import java.time.temporal.TemporalUnit
 import java.util.concurrent.TimeUnit
 
 class MainActivity : BaseActivity<ActivityHomeBinding>() {
+
+    //创建 viewmodel
+    private val viewModel: BaseViewModel by viewModels<BaseViewModel>()
 
     override fun getBinding() =
         ActivityHomeBinding.inflate(LayoutInflater.from(this))
@@ -25,20 +31,16 @@ class MainActivity : BaseActivity<ActivityHomeBinding>() {
 
             it.toast("执行协程")
 
-            lifecycleScope.launch(Dispatchers.IO){
+            viewModel.doOperator01()
 
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    delay(Duration.ofSeconds(10))
-                }else{
-                    kotlinx.coroutines.delay(10000)
-                }
+        }
 
-                withContext(Dispatchers.Main){
+        lifecycleScope.launch(Dispatchers.Main){
 
-                    xBing?.showTips?.setText("Hello, 执行协程第一个方法")
+            viewModel.stateFlow.collect{
 
-                }
 
+                if(!TextUtils.isEmpty(it)) xBing?.showTips?.setText(it)
             }
 
         }
