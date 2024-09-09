@@ -33,6 +33,7 @@ abstract class BaseDialog<T: ViewBinding>: Dialog {
             lp!!.height = LayoutParams.MATCH_PARENT
 
             lp!!.alpha = 0.3F
+            lp!!.dimAmount = 0.8F
 
             this.window!!.attributes = lp
 
