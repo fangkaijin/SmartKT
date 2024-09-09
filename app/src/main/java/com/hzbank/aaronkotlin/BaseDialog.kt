@@ -71,5 +71,7 @@ abstract class BaseDialog<T: ViewBinding>: Dialog {
     abstract fun parseView()
     open fun alpha(): Float = 1.0F
     open fun dimAmount(): Float = 1.0F
+    open fun commitSuccess() = Unit
+    open fun commitFailed() = Unit
 
 }
