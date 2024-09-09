@@ -7,14 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 
-abstract class BaseFragment<out T: ViewBinding>: Fragment() {
+abstract class BaseFragment<T: ViewBinding>: Fragment() {
 
-    private var _binding: T? = null
-        get() {
-
-            return this._binding
-
-        }
+     var _binding: T? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,

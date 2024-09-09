@@ -2,6 +2,7 @@ package com.hzbank.aaronkotlin
 
 import android.app.Dialog
 import android.content.Context
+import android.view.WindowManager.LayoutParams
 import androidx.viewbinding.ViewBinding
 
 abstract class BaseDialog<T: ViewBinding>: Dialog {
@@ -19,10 +20,25 @@ abstract class BaseDialog<T: ViewBinding>: Dialog {
 
     private fun initView(context: Context){
 
-        bind = getBinding()
-        setContentView(bind!!.root)
-        setCanceledOnTouchOutside(false)
-        parseView()
+        try{
+
+            bind = getBinding()
+            setContentView(bind!!.root)
+            setCanceledOnTouchOutside(false)
+            parseView()
+
+            //界面大小
+            val lp = this.window?.attributes
+            lp!!.width = LayoutParams.MATCH_PARENT
+            lp!!.height = LayoutParams.MATCH_PARENT
+
+            lp!!.alpha = 0.3F
+
+            this.window!!.attributes = lp
+
+        }catch (e: Exception){
+            e.printStackTrace()
+        }
     }
 
     fun showLoding(){
@@ -33,6 +49,7 @@ abstract class BaseDialog<T: ViewBinding>: Dialog {
     fun hiddenLoading(){
 
         if(this.isShowing) this.hide()
+        bind = null;
         this.cancel()
     }
 
