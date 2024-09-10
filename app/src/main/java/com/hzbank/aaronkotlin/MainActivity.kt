@@ -96,5 +96,13 @@ class MainActivity : BaseActivity<ActivityHomeBinding>() {
             }
 
         }
+
+        val imageShow: KdbImgShowView = KdbImgShowView(this@MainActivity)
+
+        imageShow.addCallback(object : KdbImgShowView.KdbImgShowCallback{
+            override fun closeBigPic() {
+
+            }
+        })
     }
 }

@@ -9,7 +9,7 @@ import androidx.viewbinding.ViewBinding
 
 abstract class BaseFragment<T: ViewBinding>: Fragment() {
 
-     var _binding: T? = null
+     private var _binding: T? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,7 +24,7 @@ abstract class BaseFragment<T: ViewBinding>: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        parseView()
+        parseView(_binding)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,5 +45,5 @@ abstract class BaseFragment<T: ViewBinding>: Fragment() {
 
     abstract fun getBinding(inflater: LayoutInflater,
                             container: ViewGroup?): T?
-    abstract fun parseView()
+    abstract fun parseView(binding: T?)
 }

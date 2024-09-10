@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "AaronKotlin"
 include(":app")
+include(":SmartKtv")
